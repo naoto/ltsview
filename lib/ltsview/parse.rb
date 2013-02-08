@@ -3,32 +3,48 @@ module Ltsview
 
     def initialize(options)
       @color = true
-      @ltsv = option_parse options
+      option_parse options
     end
 
     def print
-      $stdin.each_line do |line|
-        puts "---"
-        LTSV.parse(line.chomp).each do |key,val|
-          puts color key,val if keys?(key) && !ignore?(key)
-        end
+      file_or_stdin do |line|
+        puts line
       end
     end
 
     private
      def option_parse(options)
-       option = OptionParser.new
+       option = OptionParser.new(options)
        option.on('-f', '--file VAL'){ |v| @file = v }
        option.on('-k', '--keys VAL'){ |v| @keys = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @ignore_key = v.split(',') }
        option.on('--[no-]colors'){ |v| @color = v }
        option.permute!(options)
-       options
+     end
+
+     def file_or_stdin(&block)
+      if !@file.nil?
+        file_load(@file, &block)
+      else 
+        stdin_load(&block)
+      end
+     end
+
+     def stdin_load
+       $stdin.each_line do |line|
+         LTSV.parse(line.chomp).each do |key,val|
+           yield color key, val if keys?(key) && !ignore?(key)
+         end
+       end
      end
 
      def file_load(file_path)
        stream = File.open(file_path, 'r')
-       LTSV.parse(stream)
+       LTSV.parse(stream).each do |line|
+         line.each do |key, val|
+           yield color key, val if keys?(key) && !ignore?(key)
+         end
+       end
      end
 
      def keys?(key)
