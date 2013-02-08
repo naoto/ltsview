@@ -16,7 +16,7 @@ module Ltsview
     private
      def option_parse(options)
        option = OptionParser.new
-       option.on('-f VAL'){ |v| @file = v }
+       option.on('-f', '--file VAL'){ |v| @file = v }
        option.on('-k', '--keys VAL'){ |v| @keys = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @ignore_key = v.split(',') }
        option.permute!(options)
