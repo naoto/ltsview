@@ -2,6 +2,7 @@ module Ltsview
   class Parse
 
     def initialize(options)
+      @color = true
       @ltsv = option_parse options
     end
 
@@ -9,7 +10,7 @@ module Ltsview
       $stdin.each_line do |line|
         puts "---"
         LTSV.parse(line.chomp).each do |key,val|
-          puts "#{key.to_s.magenta}: #{val.cyan}" if keys?(key) && !ignore?(key)
+          puts color key,val if keys?(key) && !ignore?(key)
         end
       end
     end
@@ -20,6 +21,7 @@ module Ltsview
        option.on('-f', '--file VAL'){ |v| @file = v }
        option.on('-k', '--keys VAL'){ |v| @keys = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @ignore_key = v.split(',') }
+       option.on('--[no-]colors'){ |v| @color = v }
        option.permute!(options)
        options
      end
@@ -35,6 +37,10 @@ module Ltsview
 
      def ignore?(key)
        !@ignore_key.nil? && @ignore_key.include?(key.to_s)
+     end
+
+     def color(key, val)
+       @color ? "#{key.to_s.magenta}: #{val.cyan}" : "#{key}: #{val}"
      end
 
   end
