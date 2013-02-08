@@ -7,6 +7,7 @@ module Ltsview
 
     def print
       $stdin.each_line do |line|
+        puts "---"
         LTSV.parse(line.chomp).each do |key,val|
           puts "#{key.to_s.magenta}: #{val.cyan}" if keys?(key) && !ignore?(key)
         end
