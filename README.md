@@ -20,6 +20,19 @@ Or install it yourself as:
 
     $ cat logfile.ltsv | ltsview
 
+ key select
+
+    $ cat logfile.ltsv | ltsview -k firstkey,therdkey
+
+ignore key select
+
+    $ cat logfile.ltsv | ltsview -i firstkey,secondkey
+
+### Option
+
+ *  `-k , --keys VAL` to display keys select
+  *  `-i, --ignore-key VAL` to ignore keys select display
+
 ## Contributing
 
 1. Fork it
