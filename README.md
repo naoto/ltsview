@@ -31,7 +31,7 @@ ignore key select
 ### Option
 
  *  `-k , --keys VAL` to display keys select
-  *  `-i, --ignore-key VAL` to ignore keys select display
+ *  `-i, --ignore-key VAL` to ignore keys select display
 
 ## Contributing
 
