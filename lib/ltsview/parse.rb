@@ -7,8 +7,11 @@ module Ltsview
     end
 
     def print
-      file_or_stdin do |line|
-        puts line
+      file_or_stdin do |ltsv|
+        puts "---"
+        ltsv.each do |key, val|
+          puts color key, val if keys?(key) && !ignore?(key)
+        end
       end
     end
 
@@ -23,27 +26,23 @@ module Ltsview
      end
 
      def file_or_stdin(&block)
-      if !@file.nil?
-        file_load(@file, &block)
-      else 
-        stdin_load(&block)
-      end
+       if !@file.nil?
+         file_load(@file, &block)
+       else 
+         stdin_load(&block)
+       end
      end
 
      def stdin_load
        $stdin.each_line do |line|
-         LTSV.parse(line.chomp).each do |key,val|
-           yield color key, val if keys?(key) && !ignore?(key)
-         end
+         yield LTSV.parse(line.chomp)
        end
      end
 
      def file_load(file_path)
        stream = File.open(file_path, 'r')
        LTSV.parse(stream).each do |line|
-         line.each do |key, val|
-           yield color key, val if keys?(key) && !ignore?(key)
-         end
+         yield line
        end
      end
 
