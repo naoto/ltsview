@@ -7,10 +7,10 @@ Gem::Specification.new do |gem|
   gem.name          = "ltsview"
   gem.version       = Ltsview::VERSION
   gem.authors       = ["Naoto SHINGAKI"]
-  gem.email         = ["nao.sora+github@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.email         = ["n.shingaki@gmail.com"]
+  gem.description   = %q{Ltsview - Labeled Tab Separated Value manipulator Viewer}
+  gem.summary       = %q{Ltsview - Labeled Tab Separated Value manipulator Viewer}
+  gem.homepage      = "https://github.com/naoto/ltsview"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
