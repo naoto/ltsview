@@ -8,9 +8,8 @@ module Ltsview
 
     def print
       file_or_stdin do |ltsv|
-        puts "---"
-        ltsv.each do |key, val|
-          puts color key, val if keys?(key) && !ignore?(key)
+        filter(ltsv) do |key, val|
+          puts color key, val
         end
       end
     end
@@ -21,6 +20,7 @@ module Ltsview
        option.on('-f', '--file VAL'){ |v| @file = v }
        option.on('-k', '--keys VAL'){ |v| @keys = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @ignore_key = v.split(',') }
+       option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @regex = {key: k.to_sym, value: v} }
        option.on('--[no-]colors'){ |v| @color = v }
        option.permute!(options)
      end
@@ -44,6 +44,19 @@ module Ltsview
        LTSV.parse(stream).each do |line|
          yield line
        end
+     end
+
+     def filter(ltsv)
+       matcher(ltsv).each do |key, val|
+         yield key, val if keys?(key) && !ignore?(key)
+       end
+     end
+
+     def matcher(ltsv)
+       if !@regex.nil? && ltsv[@regex[:key]] !~ /(#{@regex[:value]})/
+         ltsv = {}
+       end
+       ltsv
      end
 
      def keys?(key)
