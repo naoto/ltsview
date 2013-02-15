@@ -2,6 +2,11 @@
 
 Ltsview - Labeled Tab Separated Value manipulator Viewer
 
+## Requirements
+
+ * OSX or Ubuntu
+ * Ruby 1.9.3 or later
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -24,9 +29,17 @@ Or install it yourself as:
 
     $ cat logfile.ltsv | ltsview -k firstkey,therdkey
 
-ignore key select
+ ignore key select
 
     $ cat logfile.ltsv | ltsview -i firstkey,secondkey
+
+ regex key select
+
+    $ cat logfile.ltsv | ltsview -r key:regex
+
+ load file
+
+    $ ltsview -f logfile.ltsv
 
 ### Option
 
