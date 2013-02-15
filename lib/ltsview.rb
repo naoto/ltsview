@@ -6,8 +6,6 @@ module Ltsview
   require 'ltsv'
   require 'colored'
   require 'optparse'
-  require 'yaml'
-  require 'pp'
 
   require 'ltsview/parse'
 end
