@@ -1,6 +1,11 @@
-# Ltsview
+Ltsview
+=================================================================
 
 Ltsview - Labeled Tab Separated Value manipulator Viewer
+
+[![Gem Version](https://badge.fury.io/rb/ltsview.png)](https://badge.fury.io/rb/ltsview)
+[![Code CLimate](https://codeclimate.com/github/naoto/ltsview.png)](https://codeclimate.com/github/naoto/ltsview)
+
 
 ## Requirements
 
