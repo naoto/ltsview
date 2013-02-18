@@ -46,6 +46,14 @@ Or install it yourself as:
 
     $ ltsview -f logfile.ltsv
 
+ render json
+
+    $ cat logfile.ltsv | ltsview -j
+
+ appended tag
+
+    $ cat logfile.ltsv | ltsview -t sample.tag
+
 ### Option
 
  *  `-k , --keys VAL` to display keys select
