@@ -56,8 +56,12 @@ Or install it yourself as:
 
 ### Option
 
- *  `-k , --keys VAL` to display keys select
- *  `-i, --ignore-key VAL` to ignore keys select display
+ * `-k` ,` --keys VAL` to display keys select
+ * `-i`, `--ignore-key VAL` to ignore keys select display
+ * `-r`, `--regexp KEY:VAL` 
+ * `-f`, `--file VAL` to load ltsv format file
+ * `-j`, `--json` to render json format
+ * `-t`, `--tag` to append tag
 
 ## Contributing
 
