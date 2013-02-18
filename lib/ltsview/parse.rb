@@ -2,32 +2,39 @@ module Ltsview
   class Parse
 
     def initialize(options)
-      @color = true
+      @options = {
+        mode:       :yaml,
+        color:      true,
+        file:       nil,
+        keys:       nil,
+        ignore_key: nil,
+        regex:      nil
+      }
       option_parse options
     end
 
     def print
       file_or_stdin do |ltsv|
-        filter(ltsv) do |key, val|
-          puts color key, val
-        end
+        puts "#{tag}#{formatter(filter(ltsv))}"
       end
     end
 
     private
      def option_parse(options)
        option = OptionParser.new(options)
-       option.on('-f', '--file VAL'){ |v| @file = v }
-       option.on('-k', '--keys VAL'){ |v| @keys = v.split(',') }
-       option.on('-i', '--ignore-key VAL'){ |v| @ignore_key = v.split(',') }
-       option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @regex = {key: k.to_sym, value: v} }
-       option.on('--[no-]colors'){ |v| @color = v }
+       option.on('-f', '--file VAL'){ |v| @options[:file] = v }
+       option.on('-k', '--keys VAL'){ |v| @options[:keys] = v.split(',') }
+       option.on('-i', '--ignore-key VAL'){ |v| @options[:ignore_key] = v.split(',') }
+       option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @options[:regex] = {key: k.to_sym, value: v} }
+       option.on('-j', '--json') { |v| @options[:mode] = :json }
+       option.on('-t', '--tag VAL'){ |v| @options[:tag] = v }
+       option.on('--[no-]colors'){ |v| @options[:color] = v }
        option.permute!(options)
      end
 
      def file_or_stdin(&block)
-       if !@file.nil?
-         file_load(@file, &block)
+       if !@options[:file].nil?
+         file_load(@options[:file], &block)
        else 
          stdin_load(&block)
        end
@@ -35,7 +42,7 @@ module Ltsview
 
      def stdin_load
        $stdin.each_line do |line|
-         yield LTSV.parse(line.chomp)
+         yield LTSV.parse(line.chomp).first
        end
      end
 
@@ -46,29 +53,37 @@ module Ltsview
        end
      end
 
+     def formatter(ltsv)
+       color ltsv.send("to_#{@options[:mode]}".to_sym), @options[:mode]
+     end
+
+     def tag
+       "@[#{@options[:tag]}] " if @options[:tag]
+     end
+
      def filter(ltsv)
-       matcher(ltsv).each do |key, val|
-         yield key, val if keys?(key) && !ignore?(key)
+       matcher(ltsv).delete_if do |key, val|
+         !keys?(key) || ignore?(key)
        end
      end
 
      def matcher(ltsv)
-       if !@regex.nil? && ltsv[@regex[:key]] !~ /(#{@regex[:value]})/
+       if !@options[:regex].nil? && ltsv[@options[:regex][:key]] !~ /(#{@options[:regex][:value]})/
          ltsv = {}
        end
        ltsv
      end
 
      def keys?(key)
-       @keys.nil? || @keys.include?(key.to_s)
+       @options[:keys].nil? || @options[:keys].include?(key.to_s)
      end
 
      def ignore?(key)
-       !@ignore_key.nil? && @ignore_key.include?(key.to_s)
+       !@options[:ignore_key].nil? && @options[:ignore_key].include?(key.to_s)
      end
 
-     def color(key, val)
-       @color ? "#{key.to_s.magenta}: #{val.cyan}" : "#{key}: #{val}"
+     def color(ltsv, mode)
+       @options[:color] ? CodeRay.scan(ltsv, mode).term : ltsv
      end
 
   end
