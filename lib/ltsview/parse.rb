@@ -15,7 +15,8 @@ module Ltsview
 
     def print
       file_or_stdin do |ltsv|
-        puts "#{tag}#{formatter(filter(ltsv))}"
+        line = formatter(filter(ltsv))
+        puts "#{tag}#{line}" unless line.nil?
       end
     end
 
@@ -54,7 +55,7 @@ module Ltsview
      end
 
      def formatter(ltsv)
-       color ltsv.send("to_#{@options[:mode]}".to_sym), @options[:mode]
+       color ltsv.send("to_#{@options[:mode]}".to_sym), @options[:mode] unless ltsv.empty?
      end
 
      def tag
