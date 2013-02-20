@@ -17,6 +17,7 @@ module Ltsview
       file_or_stdin do |ltsv|
         line = formatter(filter(ltsv))
         puts "#{tag}#{line}" unless line.nil?
+        $stdout.flush
       end
     end
 
