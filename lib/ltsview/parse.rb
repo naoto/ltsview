@@ -29,9 +29,12 @@ module Ltsview
        option.on('-i', '--ignore-key VAL'){ |v| @options[:ignore_key] = v.split(',') }
        option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @options[:regex] = {key: k.to_sym, value: v} }
        option.on('-j', '--json') { |v| @options[:mode] = :json }
+       option.on('-l', '--ltsv') { |v| @options[:mode] = :ltsv }
        option.on('-t', '--tag VAL'){ |v| @options[:tag] = v }
        option.on('--[no-]colors'){ |v| @options[:color] = v }
        option.permute!(options)
+
+       @options[:color] = false if @options[:mode] == :ltsv
      end
 
      def file_or_stdin(&block)

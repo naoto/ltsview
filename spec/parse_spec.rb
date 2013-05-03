@@ -23,6 +23,16 @@ describe Ltsview::Parse do
         parse.print
       }.must_equal("{\e[35m\"hoge\"\e[0m:\e[32m\e[1;32m\"\e[0m\e[32mfuga hago\e[1;32m\"\e[0m\e[32m\e[0m,\e[35m\"foo\"\e[0m:\e[32m\e[1;32m\"\e[0m\e[32mbarbaz\e[1;32m\"\e[0m\e[32m\e[0m}\n")
     end
+
+    it 'should get non-colored ltsv' do
+      parse = Ltsview::Parse.new(['-l'])
+      capture(:stdout) {
+        $stdin = StringIO.new
+        $stdin << "hoge:fuga hago\tfoo:barbaz\n"
+        $stdin.rewind
+        parse.print
+      }.must_equal("hoge:fuga hago\tfoo:barbaz\n")
+    end
   end
 
   describe 'when appended tag' do
