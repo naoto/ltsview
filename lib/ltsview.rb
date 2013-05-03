@@ -10,4 +10,5 @@ module Ltsview
   require 'json'
 
   require 'ltsview/parse'
+  require 'ltsview/hash'
 end
