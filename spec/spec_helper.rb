@@ -6,6 +6,9 @@ require 'minitest/autorun'
 
 require 'ltsview'
 
+require 'coveralls'
+Coveralls.wear!
+
 def capture(stream)
   begin
     stream = stream.to_s
