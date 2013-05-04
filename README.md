@@ -50,13 +50,13 @@ Or install it yourself as:
 
     $ cat logfile.ltsv | ltsview -j
 
+ raw mode
+
+    $ cat logfile.ltsv | ltsview -l 
+
  appended tag
 
     $ cat logfile.ltsv | ltsview -t sample.tag
- 
- no color mode
-
-    $ cat logfile.ltsv | ltsview -l 
 
 ### Option
 
@@ -66,7 +66,8 @@ Or install it yourself as:
  * `-f`, `--file VAL` to load ltsv format file
  * `-j`, `--json` to render json format
  * `-t`, `--tag` to append tag
- * `-l`, `--no-colors` to raw format
+ * `-l`, `--ltsv`  to raw format
+ * `--no-colors` to no color
 
 ## Contributing
 
