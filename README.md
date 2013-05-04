@@ -3,7 +3,7 @@ Ltsview
 
 Ltsview - Labeled Tab Separated Value manipulator Viewer
 
-[![Build Status](https://secure.travis-ci.org/naoto/ltsview)](http://travis-ci.org/naoto/ltsview)
+[![Build Status](https://secure.travis-ci.org/naoto/ltsview)](https://travis-ci.org/naoto/ltsview.png?branch=master)
 [![Gem Version](https://badge.fury.io/rb/ltsview.png)](https://badge.fury.io/rb/ltsview)
 [![Code CLimate](https://codeclimate.com/github/naoto/ltsview.png)](https://codeclimate.com/github/naoto/ltsview)
 [![Coverage Status](https://coveralls.io/repos/naoto/ltsview/badge.png?branch=master)](https://coveralls.io/r/naoto/ltsview)
