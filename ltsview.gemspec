@@ -19,10 +19,12 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'ltsv'
   gem.add_runtime_dependency 'coderay'
+  gem.add_runtime_dependency 'json' if RUBY_VERSION < '1.9'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
 
   gem.add_development_dependency 'coveralls'
+
 
 end

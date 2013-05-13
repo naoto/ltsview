@@ -3,12 +3,12 @@ module Ltsview
 
     def initialize(options)
       @options = {
-        mode:       :yaml,
-        color:      true,
-        file:       nil,
-        keys:       nil,
-        ignore_key: nil,
-        regex:      nil
+        :mode =>       :yaml,
+        :color =>      true,
+        :file =>       nil,
+        :keys =>       nil,
+        :ignore_key => nil,
+        :regex =>      nil
       }
       option_parse options
     end
@@ -27,7 +27,7 @@ module Ltsview
        option.on('-f', '--file VAL'){ |v| @options[:file] = v }
        option.on('-k', '--keys VAL'){ |v| @options[:keys] = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @options[:ignore_key] = v.split(',') }
-       option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @options[:regex] = {key: k.to_sym, value: v} }
+       option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @options[:regex] = {:key => k.to_sym, :value => v} }
        option.on('-j', '--json') { |v| @options[:mode] = :json }
        option.on('-l', '--ltsv') { |v| @options[:mode] = :ltsv }
        option.on('-t', '--tag VAL'){ |v| @options[:tag] = v }
