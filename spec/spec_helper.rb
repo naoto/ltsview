@@ -1,9 +1,4 @@
 require 'rubygems'
-require 'bundler/setup'
-
-require 'minitest/unit'
-require 'minitest/autorun'
-
 require 'ltsview'
 
 require 'coveralls'
