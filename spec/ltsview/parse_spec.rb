@@ -84,13 +84,13 @@ describe Ltsview::Parse do
   describe 'when regex matche' do
     it 'should by regex matcher' do
       parse = Ltsview::Parse.new(['-r', 'foo:^fuga'])
-      capture(:stdout){
-        $stdin = StringIO.new
-        $stdin << "hago:fuga hago\tfoo:barbaz\n"
-        $stdin << "hago:fuga2 hago\tfoo:fugabarbaz\n"
-        $stdin.rewind
-        parse.print
-      }.should eq("\e[45m---\e[0m\n\e[1;32m:hago\e[0m: \e[1;33m\e[41mfuga2 hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mfugabarbaz\e[0m\n")
+        capture(:stdout){
+          $stdin = StringIO.new
+          $stdin << "hago:fuga hago\tfoo:barbaz\n"
+          $stdin << "hago:fuga2 hago\tfoo:fugabarbaz\n"
+          $stdin.rewind
+          parse.print
+        }.should eq("\e[45m---\e[0m\n\e[1;32m:hago\e[0m: \e[1;33m\e[41mfuga2 hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mfugabarbaz\e[0m\n")
     end
   end
 
