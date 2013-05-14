@@ -1,8 +1,9 @@
 require 'rubygems'
-require 'ltsview'
 
 require 'coveralls'
 Coveralls.wear!
+
+require 'ltsview'
 
 def capture(stream)
   begin

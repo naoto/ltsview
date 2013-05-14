@@ -3,7 +3,7 @@ Ltsview
 
 Ltsview - Labeled Tab Separated Value manipulator Viewer
 
-[![Build Status](https://travis-ci.org/naoto/ltsview.png?branch=master)](https://secure.travis-ci.org/naoto/ltsview)
+[![Build Status](https://travis-ci.org/naoto/ltsview.png?branch=master)](https://travis-ci.org/naoto/ltsview)
 [![Gem Version](https://badge.fury.io/rb/ltsview.png)](https://badge.fury.io/rb/ltsview)
 [![Code CLimate](https://codeclimate.com/github/naoto/ltsview.png)](https://codeclimate.com/github/naoto/ltsview)
 [![Coverage Status](https://coveralls.io/repos/naoto/ltsview/badge.png?branch=master)](https://coveralls.io/r/naoto/ltsview)
@@ -12,7 +12,7 @@ Ltsview - Labeled Tab Separated Value manipulator Viewer
 ## Requirements
 
  * OSX or Ubuntu
- * Ruby 1.9.3 or later
+ * Ruby 1.8.7 or 1.9.3 or 2.0.0
 
 ## Installation
 
