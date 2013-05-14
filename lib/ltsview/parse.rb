@@ -24,7 +24,7 @@ module Ltsview
 
     private
      def option_parse(options)
-       option = OptionParser.new(options)
+       option = OptionParser.new()
        option.on('-f', '--file VAL'){ |v| @options[:file] = v }
        option.on('-k', '--keys VAL'){ |v| @options[:keys] = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @options[:ignore_key] = v.split(',') }
@@ -36,6 +36,10 @@ module Ltsview
        option.on('-l', '--ltsv') { |v| @options[:mode] = :ltsv }
        option.on('-t', '--tag VAL'){ |v| @options[:tag] = v }
        option.on('--[no-]colors'){ |v| @options[:color] = v }
+       option.on('-v','--version'){ |v|
+         puts "LTSView version: #{Ltsview::VERSION}"
+         exit
+       }
        option.permute!(options)
 
        @options[:color] = false if @options[:mode] == :ltsv
