@@ -3,18 +3,19 @@ module Ltsview
 
     def initialize(options)
       @options = {
-        mode:       :yaml,
-        color:      true,
-        file:       nil,
-        keys:       nil,
-        ignore_key: nil,
-        regex:      nil
+        :mode =>       :yaml,
+        :color =>      true,
+        :file =>       nil,
+        :keys =>       nil,
+        :ignore_key => nil,
+        :regex =>      nil
       }
       option_parse options
     end
 
     def print
       file_or_stdin do |ltsv|
+        next if ltsv.nil?
         line = formatter(filter(ltsv))
         puts "#{tag}#{line}" unless line.nil?
         $stdout.flush
@@ -27,7 +28,10 @@ module Ltsview
        option.on('-f', '--file VAL'){ |v| @options[:file] = v }
        option.on('-k', '--keys VAL'){ |v| @options[:keys] = v.split(',') }
        option.on('-i', '--ignore-key VAL'){ |v| @options[:ignore_key] = v.split(',') }
-       option.on('-r', '--regexp key:VAL', /\A([^:]+):(.*)/){ |_, k,v| @options[:regex] = {key: k.to_sym, value: v} }
+       option.on('-r', '--regexp VAL', /\A([^:]+):(.*)/){ |k,x,y| 
+         @options[:regex] = k.split(":", 2)
+         #@options[:regex] = {:key => key.to_sym, :value => val}
+       }
        option.on('-j', '--json') { |v| @options[:mode] = :json }
        option.on('-l', '--ltsv') { |v| @options[:mode] = :ltsv }
        option.on('-t', '--tag VAL'){ |v| @options[:tag] = v }
@@ -47,7 +51,7 @@ module Ltsview
 
      def stdin_load
        $stdin.each_line do |line|
-         yield LTSV.parse(line.chomp).first
+         yield LTSV.parse(line.chomp).first unless line.nil?
        end
      end
 
@@ -73,7 +77,7 @@ module Ltsview
      end
 
      def matcher(ltsv)
-       if !@options[:regex].nil? && ltsv[@options[:regex][:key]] !~ /(#{@options[:regex][:value]})/
+       if !@options[:regex].nil? && ltsv[@options[:regex].first.to_sym] !~ /(#{@options[:regex].last})/
          ltsv = {}
        end
        ltsv
