@@ -9,10 +9,10 @@ Ltsview - Labeled Tab Separated Value manipulator Viewer
 [![Coverage Status](https://coveralls.io/repos/naoto/ltsview/badge.png?branch=master)](https://coveralls.io/r/naoto/ltsview)
 
 
-## Requirements
+## Supported
 
  * OSX or Ubuntu
- * Ruby 1.8.7 or 1.9.3 or 2.0.0
+ * Ruby 1.9.3 or 2.0.0 or 2.1.0
 
 ## Installation
 
