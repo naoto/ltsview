@@ -18,3 +18,7 @@ def capture(stream)
   end
   result
 end
+
+def color(text, format = :yaml)
+  CodeRay.scan(text, format).term
+end

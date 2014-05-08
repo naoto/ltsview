@@ -11,7 +11,7 @@ describe Ltsview::Parse do
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
         $stdin.rewind
         parse.print
-      }.should eq("\e[45m---\e[0m\n\e[1;32m:hoge\e[0m: \e[1;33m\e[41mfuga hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mbarbaz\e[0m\n")
+      }.should eq(color("---\n:hoge\: fuga hago\n:foo: barbaz\n"))
     end
 
     it 'shoild get json' do
@@ -21,7 +21,7 @@ describe Ltsview::Parse do
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
         $stdin.rewind
         parse.print
-      }.should eq("{\e[35m\"hoge\"\e[0m:\e[32m\e[1;32m\"\e[0m\e[32mfuga hago\e[1;32m\"\e[0m\e[32m\e[0m,\e[35m\"foo\"\e[0m:\e[32m\e[1;32m\"\e[0m\e[32mbarbaz\e[1;32m\"\e[0m\e[32m\e[0m}\n")
+      }.should eq(color("{\"hoge\":\"fuga hago\",\"foo\":\"barbaz\"}\n", :json))
     end
 
     it 'should get non-colored ltsv' do
@@ -43,7 +43,7 @@ describe Ltsview::Parse do
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
         $stdin.rewind
         parse.print
-      }.should eq("@[test.tag] \e[45m---\e[0m\n\e[1;32m:hoge\e[0m: \e[1;33m\e[41mfuga hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mbarbaz\e[0m\n")
+      }.should eq("@[test.tag] #{color("---\n:hoge: fuga hago\n:foo: barbaz\n")}")
     end
   end
 
@@ -52,7 +52,7 @@ describe Ltsview::Parse do
       parse = Ltsview::Parse.new(['-f','spec/test.ltsv'])
       capture(:stdout){
         parse.print
-      }.should eq("\e[45m---\e[0m\n\e[1;32m:hoge\e[0m: \e[1;33m\e[41mfuga hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mbarbaz\e[0m\n")
+      }.should eq(color("---\n:hoge: fuga hago\n:foo: barbaz\n"))
     end
   end
 
@@ -65,7 +65,7 @@ describe Ltsview::Parse do
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
         $stdin.rewind
         parse.print
-      }.should eq("\e[45m---\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mbarbaz\e[0m\n")
+      }.should eq(color("---\n:foo: barbaz\n"))
     end
   end
 
@@ -77,7 +77,7 @@ describe Ltsview::Parse do
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
         $stdin.rewind
         parse.print
-      }.should eq("\e[45m---\e[0m\n\e[1;32m:hoge\e[0m: \e[1;33m\e[41mfuga hago\e[0m\n")
+      }.should eq(color("---\n:hoge: fuga hago\n"))
     end
   end
 
@@ -90,7 +90,7 @@ describe Ltsview::Parse do
           $stdin << "hago:fuga2 hago\tfoo:fugabarbaz\n"
           $stdin.rewind
           parse.print
-        }.should eq("\e[45m---\e[0m\n\e[1;32m:hago\e[0m: \e[1;33m\e[41mfuga2 hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mfugabarbaz\e[0m\n")
+        }.should eq(color("---\n:hago: fuga2 hago\n:foo: fugabarbaz\n"))
     end
   end
 
@@ -102,7 +102,7 @@ describe Ltsview::Parse do
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
         $stdin.rewind
         parse.print
-      }.should eq("\e[45m---\e[0m\n\e[1;32m:hoge\e[0m: \e[1;33m\e[41mfuga hago\e[0m\n\e[1;32m:foo\e[0m: \e[1;33m\e[41mbarbaz\e[0m\n")
+      }.should eq(color("---\n:hoge: fuga hago\n:foo: barbaz\n"))
     end
 
     it 'should by color mode off' do
