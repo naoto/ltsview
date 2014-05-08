@@ -2,4 +2,6 @@
 
 require 'ltsview'
 
+trap("SIGINT") { exit }
+
 Ltsview::Parse.new(ARGV).print
