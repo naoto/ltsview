@@ -8,7 +8,8 @@ module Ltsview
         :file =>       nil,
         :keys =>       nil,
         :ignore_key => nil,
-        :regex =>      nil
+        :regex =>      nil,
+        :reorder =>    false
       }
       option_parse options
     end
@@ -16,7 +17,7 @@ module Ltsview
     def print
       file_or_stdin do |ltsv|
         next if ltsv.nil?
-        line = formatter(filter(ltsv))
+        line = formatter(reorder(filter(ltsv)))
         puts "#{tag}#{line}" unless line.nil?
         $stdout.flush
       end
@@ -36,6 +37,7 @@ module Ltsview
        option.on('-l', '--ltsv') { |v| @options[:mode] = :ltsv }
        option.on('-t', '--tag VAL'){ |v| @options[:tag] = v }
        option.on('--[no-]colors'){ |v| @options[:color] = v }
+       option.on('-o', '--[no-]reorder') { |v| @options[:reorder] = v }
        option.on('-v','--version'){ |v|
          puts "LTSView version: #{Ltsview::VERSION}"
          exit
@@ -72,6 +74,18 @@ module Ltsview
 
      def tag
        "@[#{@options[:tag]}] " if @options[:tag]
+     end
+
+     def reorder(ltsv)
+       if @options[:reorder] && !@options[:keys].nil?
+         @options[:keys].inject({}) do |hash, key|
+           key_sym = key.to_sym
+           hash[key_sym] = ltsv[key_sym]
+           hash
+         end
+       else
+         ltsv
+       end
      end
 
      def filter(ltsv)

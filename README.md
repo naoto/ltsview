@@ -36,6 +36,10 @@ Or install it yourself as:
 
     $ cat logfile.ltsv | ltsview -k firstkey,therdkey
 
+  key select and reorder
+
+    $ cat logfile.ltsv | ltsview -k firstkey,therdkey --reorder
+
  ignore key select
 
     $ cat logfile.ltsv | ltsview -i firstkey,secondkey
@@ -69,6 +73,7 @@ Or install it yourself as:
  * `-j`, `--json` to render json format
  * `-t`, `--tag` to append tag
  * `-l`, `--ltsv`  to raw format
+ * `-o`, `--reorder` to reorder keys with `--keys` option
  * `--no-colors` to no color
 
 ## Contributing
