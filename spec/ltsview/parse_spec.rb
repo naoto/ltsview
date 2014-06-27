@@ -117,5 +117,27 @@ describe Ltsview::Parse do
 
   end
 
+  describe 'when reorder mode on' do
+    it 'should reorder key-value pairs with --keys option' do
+      parse = Ltsview::Parse.new(['--reorder', '--keys', 'foo,hoge'])
+      capture(:stdout){
+        $stdin = StringIO.new
+        $stdin << "hoge:fuga hago\tfoo:barbaz\n"
+        $stdin.rewind
+        parse.print
+      }.should eq(color("---\n:foo: barbaz\n:hoge: fuga hago\n"))
+    end
+
+    it 'should not reorder key-value pairs without --keys option' do
+      parse = Ltsview::Parse.new(['--reorder'])
+      capture(:stdout){
+        $stdin = StringIO.new
+        $stdin << "hoge:fuga hago\tfoo:barbaz\n"
+        $stdin.rewind
+        parse.print
+      }.should eq(color("---\n:hoge: fuga hago\n:foo: barbaz\n"))
+    end
+
+  end
 end
 
