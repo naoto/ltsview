@@ -76,6 +76,20 @@ Or install it yourself as:
  * `-o`, `--reorder` to reorder keys with `--keys` option
  * `--no-colors` to no color
 
+### Inspired by
+
+ * https://github.com/naoya/perl-Text-LTSV
+ * http://d.hatena.ne.jp/naoya/20130207/1360229220
+
+### Author
+
+ * Naoto SHINGAKI
+
+### Contributors (Thanks!)
+
+ * [a2ikm](https://github.com/a2ikm/) 
+ * [Tomohiro](https://github.com/Tomohiro/)
+
 ## Contributing
 
 1. Fork it
