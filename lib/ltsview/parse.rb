@@ -31,7 +31,6 @@ module Ltsview
        option.on('-i', '--ignore-key VAL'){ |v| @options[:ignore_key] = v.split(',') }
        option.on('-r', '--regexp VAL', /\A([^:]+):(.*)/){ |k,x,y| 
          @options[:regex] = k.split(":", 2)
-         #@options[:regex] = {:key => key.to_sym, :value => val}
        }
        option.on('-j', '--json') { |v| @options[:mode] = :json }
        option.on('-l', '--ltsv') { |v| @options[:mode] = :ltsv }
@@ -42,6 +41,7 @@ module Ltsview
          puts "LTSView version: #{Ltsview::VERSION}"
          exit
        }
+
        option.permute!(options)
 
        @options[:color] = false if @options[:mode] == :ltsv

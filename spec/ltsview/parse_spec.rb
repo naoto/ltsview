@@ -5,7 +5,7 @@ describe Ltsview::Parse do
 
   describe 'when encode stdin text line' do
     it 'should get yaml' do
-      parse = Ltsview::Parse.new(ARGV)
+      parse = Ltsview::Parse.new([])
       capture(:stdout) {
         $stdin = StringIO.new
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
@@ -96,7 +96,7 @@ describe Ltsview::Parse do
 
   describe 'when color mode' do
     it 'should by default color mode on' do
-      parse = Ltsview::Parse.new(ARGV)
+      parse = Ltsview::Parse.new([])
       capture(:stdout){
         $stdin = StringIO.new
         $stdin << "hoge:fuga hago\tfoo:barbaz\n"
